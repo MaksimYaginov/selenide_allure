@@ -1,0 +1,47 @@
+group 'selenide_reports'
+version '1.0-SNAPSHOT'
+
+buildscript {
+
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath "io.qameta.allure:allure-gradle:2.5"
+    }
+}
+
+
+apply plugin: 'java'
+apply plugin: 'io.qameta.allure'
+
+allure {
+    version = '2.12.1'
+    autoconfigure = true
+    aspectjweaver = true
+}
+
+compileJava.options.encoding = "UTF-8"
+compileTestJava.options.encoding = "UTF-8"
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile group: 'com.codeborne', name: 'selenide', version: '5.2.2'
+
+    compile group: 'org.aspectj', name: 'aspectjweaver', version: '1.9.4'
+}
+
+test {
+
+    systemProperties = [
+            'file.encoding': 'UTF-8',
+            'selenide.browser': 'chrome',
+    ]
+    useJUnit()
+}
+
+
